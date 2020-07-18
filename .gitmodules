@@ -1,0 +1,3 @@
+[submodule "bis-file-formats.git"]
+	path = bis-file-formats
+	url = https://github.com/Braini01/bis-file-formats.git
