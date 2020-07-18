@@ -130,7 +130,6 @@ namespace ArmaDataExtractor
         {
             var blacklistedFileExtensions = new string[]
             {
-                ".bin",
                 ".fsm",
                 ".fxy",
                 ".jpg",
