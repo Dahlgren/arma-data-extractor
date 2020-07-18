@@ -106,20 +106,21 @@ namespace ArmaDataExtractor
 
             Console.WriteLine($"Extracting {pboArchive.FileName}");
 
+            var pboDirectoryPath = Path.Join(outputFolder, ConvertPathSeparator(pboArchive.Prefix));
+
             if (!minify)
             {
-                pboArchive.ExtractAllFiles(outputFolder);
+                pboArchive.ExtractFiles(pboArchive.FileEntries, outputFolder);
                 return;
             }
 
-            var pboDirectoryPath = Path.Join(outputFolder, pboArchive.Prefix);
             var whitelistedEntries = pboArchive.FileEntries.Where(IsWhitelistedFile);
             var blacklistedEntries = pboArchive.FileEntries.Except(whitelistedEntries);
             pboArchive.ExtractFiles(whitelistedEntries, pboDirectoryPath);
 
             foreach (var blacklistedEntry in blacklistedEntries)
             {
-                var filename = Path.Combine(pboDirectoryPath, blacklistedEntry.FileName);
+                var filename = Path.Join(pboDirectoryPath, ConvertPathSeparator(blacklistedEntry.FileName));
                 Directory.CreateDirectory(Path.GetDirectoryName(filename));
                 File.Create(filename).Dispose();
             }
@@ -142,6 +143,11 @@ namespace ArmaDataExtractor
             };
 
             return blacklistedFileExtensions.All(fileExtension => !fileEntry.FileName.EndsWith(fileExtension));
+        }
+
+        private static string ConvertPathSeparator(string path)
+        {
+            return path.Replace('\\', Path.DirectorySeparatorChar);
         }
     }
 }
