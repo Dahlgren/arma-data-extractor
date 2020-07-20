@@ -22,10 +22,10 @@ namespace ArmaDataExtractor
         public bool IgnoreDubbing { get; set; }
 
         [Option("ignore-map-layers", HelpText = "Ignore Arma 3 map layers files")]
-        public bool IgnoreMissions { get; set; }
+        public bool IgnoreMapLayers { get; set; }
 
         [Option("ignore-missions", HelpText = "Ignore Arma 3 mission files")]
-        public bool IgnoreMapLayers { get; set; }
+        public bool IgnoreMissions { get; set; }
 
         [Option("minify", HelpText = "Write empty files for large binary files")]
         public bool Minify { get; set; }
