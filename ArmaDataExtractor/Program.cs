@@ -135,6 +135,7 @@ namespace ArmaDataExtractor
             ".p3d",
             ".rtm",
             ".shdc",
+            ".wav",
             ".wrp",
             ".wss",
             ".xml",
