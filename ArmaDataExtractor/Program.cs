@@ -131,6 +131,7 @@ namespace ArmaDataExtractor
             ".fxy",
             ".jpg",
             ".paa",
+            ".png",
             ".p3d",
             ".rtm",
             ".shdc",
