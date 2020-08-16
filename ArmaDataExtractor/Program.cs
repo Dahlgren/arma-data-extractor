@@ -114,35 +114,34 @@ namespace ArmaDataExtractor
                 return;
             }
 
-            var whitelistedEntries = pboArchive.FileEntries.Where(IsWhitelistedFile);
-            var blacklistedEntries = pboArchive.FileEntries.Except(whitelistedEntries);
-            pboArchive.ExtractFiles(whitelistedEntries, pboDirectoryPath);
+            var allowedEntries = pboArchive.FileEntries.Where(IsAllowedFile);
+            var minifiedEntries = pboArchive.FileEntries.Except(allowedEntries);
+            pboArchive.ExtractFiles(allowedEntries, pboDirectoryPath);
 
-            foreach (var blacklistedEntry in blacklistedEntries)
+            foreach (var ignoredEntry in minifiedEntries)
             {
-                var filename = Path.Join(pboDirectoryPath, ConvertPathSeparator(blacklistedEntry.FileName));
+                var filename = Path.Join(pboDirectoryPath, ConvertPathSeparator(ignoredEntry.FileName));
                 Directory.CreateDirectory(Path.GetDirectoryName(filename));
                 File.Create(filename).Dispose();
             }
         }
 
-        private static bool IsWhitelistedFile(FileEntry fileEntry)
-        {
-            var blacklistedFileExtensions = new string[]
-            {
-                ".fsm",
-                ".fxy",
-                ".jpg",
-                ".paa",
-                ".p3d",
-                ".rtm",
-                ".shdc",
-                ".wrp",
-                ".wss",
-                ".xml",
-            };
+        private static readonly string[] minifiedFileExtensions = {
+            ".fsm",
+            ".fxy",
+            ".jpg",
+            ".paa",
+            ".p3d",
+            ".rtm",
+            ".shdc",
+            ".wrp",
+            ".wss",
+            ".xml",
+        };
 
-            return blacklistedFileExtensions.All(fileExtension => !fileEntry.FileName.EndsWith(fileExtension));
+        private static bool IsAllowedFile(FileEntry fileEntry)
+        {
+            return minifiedFileExtensions.All(fileExtension => !fileEntry.FileName.EndsWith(fileExtension));
         }
 
         private static string ConvertPathSeparator(string path)
