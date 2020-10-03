@@ -130,6 +130,7 @@ namespace ArmaDataExtractor
             ".fsm",
             ".fxy",
             ".jpg",
+            ".ogg",
             ".paa",
             ".png",
             ".p3d",
