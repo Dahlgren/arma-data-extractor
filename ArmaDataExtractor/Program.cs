@@ -108,6 +108,11 @@ namespace ArmaDataExtractor
 
             var pboDirectoryPath = Path.Join(outputFolder, ConvertPathSeparator(pboArchive.Prefix));
 
+            foreach (var entry in pboArchive.FileEntries)
+            {
+                entry.FileName = ConvertPathSeparator(entry.FileName);
+            }
+
             if (!minify)
             {
                 pboArchive.ExtractFiles(pboArchive.FileEntries, outputFolder);
@@ -120,7 +125,7 @@ namespace ArmaDataExtractor
 
             foreach (var ignoredEntry in minifiedEntries)
             {
-                var filename = Path.Join(pboDirectoryPath, ConvertPathSeparator(ignoredEntry.FileName));
+                var filename = Path.Join(pboDirectoryPath, ignoredEntry.FileName);
                 Directory.CreateDirectory(Path.GetDirectoryName(filename));
                 File.Create(filename).Dispose();
             }
