@@ -1,0 +1,6 @@
+version: '2'
+
+services:
+  arma-data-extractor:
+    build: .
+    image: dahlgren/arma-data-extractor
